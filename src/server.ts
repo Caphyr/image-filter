@@ -39,11 +39,14 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     }
     try {
       filteredImage = await filterImageFromURL(image_url);
-      res.sendFile(filteredImage, () => {
+      res.sendFile(filteredImage, (err) => {
+        if (err) {
+          throw new Error('Error while sending file to client');
+        }
         deleteLocalFiles([filteredImage]);
       });
     } catch (error) {
-      return res.status(500).send({message: 'Internal server error'});
+      return res.status(500).send({message: error.message});
     }
   });
   
