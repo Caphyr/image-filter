@@ -31,8 +31,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   //! END @TODO1
 
-  var images: string[] = [];
-
   app.get('/filteredimage', async (req, res) => {
     const {image_url} = req.query;
     let filteredImage: string;
